@@ -1,6 +1,5 @@
-function calculateMinCost() {
-  //your code here
-	 if (arr.length <= 1) return 0;
+function calculateMinCost(arr) {
+  if (arr.length <= 1) return 0;
 
   arr.sort((a, b) => a - b);
   let cost = 0;
@@ -12,6 +11,7 @@ function calculateMinCost() {
 
     cost += sum;
 
+    // insert sum in sorted position
     let i = 0;
     while (i < arr.length && arr[i] < sum) i++;
     arr.splice(i, 0, sum);
@@ -20,10 +20,12 @@ function calculateMinCost() {
   return cost;
 }
 
+// DOM Elements
 const form = document.querySelector("form");
 const input = document.querySelector('input[type="text"]');
 const result = document.getElementById("result");
 
+// Event Listener
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -32,8 +34,7 @@ form.addEventListener("submit", function (e) {
     .map((x) => parseInt(x.trim()))
     .filter((x) => !isNaN(x));
 
-  result.textContent = minCost(ropes);
-  
-  
-  
-}  
+  const cost = calculateMinCost(ropes);
+
+  result.textContent = "Minimum Cost: " + cost;
+});
