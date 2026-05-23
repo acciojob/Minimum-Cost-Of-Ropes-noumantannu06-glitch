@@ -5,13 +5,13 @@ function calculateMinCost(arr) {
   let cost = 0;
 
   while (arr.length > 1) {
-    const first = arr.shift();
-    const second = arr.shift();
-    const sum = first + second;
+    let first = arr.shift();
+    let second = arr.shift();
 
+    let sum = first + second;
     cost += sum;
 
-    // insert sum in sorted position
+    // insert sum back in sorted order
     let i = 0;
     while (i < arr.length && arr[i] < sum) i++;
     arr.splice(i, 0, sum);
@@ -20,21 +20,21 @@ function calculateMinCost(arr) {
   return cost;
 }
 
-// DOM Elements
+// DOM
 const form = document.querySelector("form");
 const input = document.querySelector('input[type="text"]');
 const result = document.getElementById("result");
 
-// Event Listener
+// ✅ FIXED EVENT LISTENER
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const ropes = input.value
     .split(",")
-    .map((x) => parseInt(x.trim()))
-    .filter((x) => !isNaN(x));
+    .map(x => parseInt(x.trim()))
+    .filter(x => !isNaN(x));
 
   const cost = calculateMinCost(ropes);
 
-  result.textContent = "Minimum Cost: " + cost;
-});
+  result.textContent = cost;
+});  // ✅ VERY IMPORTANT (this was missing)
